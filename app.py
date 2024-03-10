@@ -53,13 +53,25 @@ def file_upload():
 
 @app.route('/file/list', methods=['GET','POST'])
 def view_files():
-   db = open_db()
-   files =  db.query(File).all()
-   return render_template('display_list.html', files=files)
+    db = open_db()
+    files =  db.query(File).all()
+    # segregate file into different file types
+    fileList = []
+    for file in files:
+        file = file.__dict__
+        file['type'] = os.path.splitext(file['path'])[1]
+        print(file)
+        fileList.append(file)
+    return render_template('display_list.html', files=fileList)
 
 @app.route('/file/<int:id>/view/')
 def file_view(id):
     return render_template('view_file.html')
+
+@app.route('/dashboard')
+def dashboard():
+    #code
+    return render_template('dashboard.html')
 
 @app.route('/about')
 def about():

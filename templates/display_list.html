@@ -10,7 +10,7 @@
     html,
     body {
         background: linear-gradient(45deg, #190f2c, #200b30);
-     
+
     }
 
     img {
@@ -27,7 +27,8 @@
         align-items: center;
         position: relative;
     }
-    .grid-wrapper>div>a{
+
+    .grid-wrapper>div>a {
         text-decoration: none;
         color: white;
     }
@@ -69,13 +70,18 @@
         <div class="col-md-12 my-4">
             <div class="grid-wrapper">
                 {% for file in files %}
-                        <div>
-                            <a href="/file/{{file.id}}/view">
-                                
-                                <img src="\{{file.path}}" />
-                                
-                            </a>
-                        </div>
+                    {% if file.type == '.mp4' %}
+                    <video width="320" height="240" controls>
+                        <source src="/{{ file.path }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% else %}
+                    <div>
+                        <a href="/{{ file.path }}">
+                            <img src="/{{ file.path }}" alt="{{ file.name }}">
+                        </a>
+                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
