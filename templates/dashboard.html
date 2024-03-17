@@ -1,88 +1,57 @@
+{% extends 'layout/base.html' %}
+
+{% block content %} 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image & Video Deblurring Tool</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button Page</title>
+
 <body>
-  <div class="container">
-    <h1>Image & Video Deblurring Tool</h1>
-    <div class="upload-section">
-      <h2>Upload File</h2>
-      <div class="upload-option">
-        <label for="image-upload">Image:</label>
-        <input type="file" id="image-upload" accept="image/*">
-      </div>
-      <div class="upload-option">
-        <label for="video-upload">Video:</label>
-        <input type="file" id="video-upload" accept="video/*">
-      </div>
-    </div>
-    <div class="action-section">
-      <h2>Actions</h2>
-      <button id="detect-blur">Detect Blur</button>
-      <button id="remove-blur" disabled>Remove Blur</button>
-    </div>
-    <div class="preview-section">
-      <h2>Preview</h2>
-      <div id="preview-container">
-        </div>
-    </div>
+
+  <div class="button-container">
+      <a href="/file/upload" class="button">Uplaod File</a>
+      <a href="/file/list" class="button">View Uploads</a>
   </div>
-</body>
+  
+  </body>
+
 <style>
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 20px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+     
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    .button-container {
+        text-align: center;
+    }
 
-h1, h2 {
-  margin-bottom: 10px;
-}
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        text-decoration: none; /* Added */
+    }
 
-.upload-section, .action-section, .preview-section {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-
-.upload-option {
-  margin-bottom: 5px;
-}
-
-.action-section button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.action-section button#remove-blur {
-  background-color: #ddd;
-  cursor: default;
-}
-
-#preview-container {
-  width: 100%;
-  height: 200px;
-  border: 1px dashed #ddd;
-  text-align: center;
-  line-height: 200px;
-}
-
-
+    .button:hover {
+        background-color: #45a049;
+    }
 </style>
+</head>
 </html>
+
+
+{% endblock %}

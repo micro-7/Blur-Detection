@@ -75,6 +75,11 @@
       background-color: #333;
       color: #fff;
     }
+
+    .form-group input[type="email"] {
+    width: 357px; /* Adjust the width as needed */
+    height: 45px; /* Adjust the height as needed */
+    }
   </style>
 </head>
 <body>
@@ -83,10 +88,10 @@
 
 <div class="login-container">
   <h2>Login to BlurBuster</h2>
-  <form action="l" method="post">
+  <form method="post">
     <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
     </div>
     <div class="form-group">
       <label for="password">Password:</label>

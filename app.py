@@ -14,29 +14,52 @@ app.secret_key = 'thisissupersecretkeyfornoone'
 def index():
     return render_template('index.html')
 
-@app.route('/login', methods=['GET', 'POST']) # use froute
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        print("Email =>", email)
-        print("Password =>", password)
-        #logic
+       
+        if email:
+            if password:
+                print("Email =>", email)
+                print("Password =>", password)
+                try:
+                    db = open_db()
+                    user = db.query(User).filter_by(email=email,password=password).first()
+                    print(user)
+                    if user:
+                        session['isauth'] = True
+                        session['email'] = user.email
+                        session['id'] = user.id
+                        del db
+                        flash('login successfull','success')
+                        return redirect('/')
+                    else:
+                        flash('email or password is wrong','danger')
+                except Exception as e:
+                    flash(e,'danger')
+                    print(e)
+            else:
+                print("error")
+        else:
+            print('email error')
+                
     return render_template('login.html')
 
-@app.route('/register', methods=['GET', 'POST']) # use froute
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
         cpassword = request.form.get('cpassword')
-        print(username, email, password, cpassword)
-        # logic
+        print(username,email,password,cpassword)
+
         if len(username) == 0 or len(email) == 0 or len(password) == 0 or len(cpassword) == 0:
-            flash("All fields are required", 'danger')
-            return redirect('/register') # reload the page
-        user = User(username=username, email=email, password=password)
+          flash("All fields are required", 'danger')
+          return redirect('/register')
+        user = User(username=username,password=password,email=email)
         add_to_db(user)
     return render_template('register.html')
 
@@ -77,6 +100,11 @@ def dashboard():
 def about():
     #code
     return render_template('about.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 if __name__ == '__main__':

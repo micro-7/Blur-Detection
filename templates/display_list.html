@@ -10,7 +10,6 @@
     html,
     body {
         background: linear-gradient(45deg, #190f2c, #200b30);
-
     }
 
     img {
@@ -22,19 +21,17 @@
 
     /* Main CSS */
     .grid-wrapper>div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         position: relative;
     }
 
     .grid-wrapper>div>a {
+        display: block; /* Changed from inline-block */
         text-decoration: none;
         color: white;
     }
 
     .grid-wrapper>div>a>img {
-        width: 300px;
+        width: 100%; /* Changed from 300px */
         height: 100%;
         aspect-ratio: 3/2;
         border-radius: 15px;
@@ -61,6 +58,14 @@
         grid-column: span 2;
         grid-row: span 2;
     }
+
+    /* Add style for video */
+    .grid-wrapper video {
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        border-radius: 15px; /* Rounded corners */
+        object-fit: cover; /* Cover entire area */
+    }
 </style>
 {% endblock %}
 
@@ -71,10 +76,12 @@
             <div class="grid-wrapper">
                 {% for file in files %}
                     {% if file.type == '.mp4' %}
-                    <video width="320" height="240" controls>
-                        <source src="/{{ file.path }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <div>
+                        <video controls>
+                            <source src="/{{ file.path }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
                     {% else %}
                     <div>
                         <a href="/{{ file.path }}">
