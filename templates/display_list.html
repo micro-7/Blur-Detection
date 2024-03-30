@@ -22,16 +22,19 @@
     /* Main CSS */
     .grid-wrapper>div {
         position: relative;
+        
     }
 
     .grid-wrapper>div>a {
-        display: block; /* Changed from inline-block */
+        display: block;
+        /* Changed from inline-block */
         text-decoration: none;
         color: white;
     }
 
     .grid-wrapper>div>a>img {
-        width: 100%; /* Changed from 300px */
+        width: 100%;
+        /* Changed from 300px */
         height: 100%;
         aspect-ratio: 3/2;
         border-radius: 15px;
@@ -61,11 +64,16 @@
 
     /* Add style for video */
     .grid-wrapper video {
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        border-radius: 15px; /* Rounded corners */
-        object-fit: cover; /* Cover entire area */
+        width: 100%;
+        /* Full width */
+        height: 140%;
+        /* Full height */
+        border-radius: 5%;
+        /* Rounded corners */
+        object-fit: cover;
+        /* Cover entire area */
     }
+    
 </style>
 {% endblock %}
 
@@ -75,20 +83,26 @@
         <div class="col-md-12 my-4">
             <div class="grid-wrapper">
                 {% for file in files %}
-                    {% if file.type == '.mp4' %}
-                    <div>
-                        <video controls>
-                            <source src="/{{ file.path }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                {% if file.type == '.mp4' %}
+                <div>
+                    <video controls>
+                        <source src="/{{ file.path }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
+                    <a href="/blur/vid/{{file.id}}" class="btn btn-danger">Detect Blur</a>
                     </div>
-                    {% else %}
-                    <div>
-                        <a href="/{{ file.path }}">
-                            <img src="/{{ file.path }}" alt="{{ file.name }}">
-                        </a>
-                    </div>
-                    {% endif %}
+                <!-- Delete button -->
+                {% else %}
+                <div>
+                    <a href="/{{ file.path }}">
+                        <img src="/{{ file.path }}" alt="{{ file.name }}">
+                    </a> <!-- Delete button -->
+                    <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
+                    <a href="/blur/vid/{{file.id}}" class="btn btn-danger">Detect Blur</a>
+                </div>
+
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

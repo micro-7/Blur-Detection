@@ -5,6 +5,8 @@ from database import User, add_to_db, File, open_db
 import os
 from werkzeug.utils import secure_filename
 from common.file_utils import *
+from common.blur_vid import process_video  
+from common.remove_vid_blur import remove_blur_from_video
 
 
 app = Flask(__name__)
@@ -90,6 +92,30 @@ def view_files():
 @app.route('/file/<int:id>/view/')
 def file_view(id):
     return render_template('view_file.html')
+
+@app.route('/delete/<int:id>')
+def delete_file(id):
+    db = open_db()
+    file = db.query(File).filter_by(id=id).first()
+    if file:
+        os.remove(file.path)
+        db.delete(file)
+        db.commit()
+        db.close()
+        flash("File deleted successfully", 'success')
+        return redirect('/file/list')
+    return render_template('view_file.html')
+
+@app.route('/blur/vid/<int:id>')
+def detect(id):
+    db = open_db()
+    file = db.query(File).filter_by(id=id).first()
+    out = process_video(file.path, 100.0)   
+    output_path = remove_blur_from_video(file.path, out, f"videos/{file.id}_blur_removed.mp4")
+    print("Output video saved at:", output_path)
+    flash("Blur removed successfully", 'success')
+    return redirect('/file/list')
+
 
 @app.route('/dashboard')
 def dashboard():
