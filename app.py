@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from common.file_utils import *
 from common.blur_vid import process_video  
 from common.remove_vid_blur import remove_blur_from_video
+from common.image_blur_detection import detect_img_blur
 
 
 app = Flask(__name__)
@@ -115,6 +116,21 @@ def detect(id):
     print("Output video saved at:", output_path)
     flash("Blur removed successfully", 'success')
     return redirect('/file/list')
+
+@app.route('/blur/img/<int:id>')
+def detect_img(id):
+    db = open_db()
+    file = db.query(File).filter_by(id=id).first()
+    print(file)
+    is_blurry = detect_img_blur(file.path)
+    if is_blurry:
+        flash("Image is blurry", 'danger')
+        msg = f'Image is blurry, please remove this image{file.path}'
+    else:
+        flash("Image is not blurry", 'success')
+        msg = f'Image is not blurry, {file.path}'
+    return render_template('view_file.html', file=file, msg=msg)
+    
 
 
 @app.route('/dashboard')

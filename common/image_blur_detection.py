@@ -37,6 +37,13 @@ def process_images(image_path, threshold=100.0):
         })
     cv2.destroyAllWindows()  # Close all OpenCV windows when the script ends
     return result
+
+def detect_img_blur(image_path) -> bool:
+    image = cv2.imread(image_path)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    fm = variance_of_laplacian(gray)
+    return fm < 100.0
+
 if __name__ == "__main__":
     out = process_images("images", 100.0)
     print(out)

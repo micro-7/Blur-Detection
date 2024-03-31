@@ -54,11 +54,64 @@
 </head>
 <body>
 
+  <style>
+    .scroll {
+        overflow-y: auto;
+        max-height: 500px;
+    }
+
+    body{
+        background-color: black;
+    }
+
+    *{
+    padding: 0px;
+    margin:0px;
+}
+.main-container{
+    margin:0px;
+    padding: 0px;
+    background-color: black;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+.blur-circle1{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(120px);
+    position: absolute;
+    left: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+.blur-circle2{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(100px);
+    position: absolute;
+    right: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+</style>
+<div class="main-container">
+    <div class="blur-circle1">
+  
+    </div>
+    <div class="blur-circle2">
+  
+    </div>
+
 <div class="content">
   <h1>About Us - BlurBuster</h1>
   <p>Welcome to BlurBuster, your one-stop solution for detecting and removing blur from images!</p>
   <p>At BlurBuster, we understand the importance of clear and sharp images. Whether you're a professional photographer, a hobbyist, or just someone who wants to enhance their photos, we've got you covered.</p>
-  <p>Our team of experts has developed advanced algorithms to automatically detect and remove blur from images, ensuring that your photos always look their best.</p>
+  <p>Our team of experts has developed advanced algorithms to automatically detect from images and detect the blurry frames form the a video and remove it.</p>
   <p>With BlurBuster, you can say goodbye to blurry photos and hello to stunning, crystal-clear images!</p>
 
   <div class="contact-info">

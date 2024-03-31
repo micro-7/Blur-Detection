@@ -6,7 +6,54 @@
         overflow-y: auto;
         max-height: 500px;
     }
+
+    body{
+        background-color: black;
+    }
+
+    *{
+    padding: 0px;
+    margin:0px;
+}
+.main-container{
+    margin:0px;
+    padding: 0px;
+    background-color: black;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+.blur-circle1{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(120px);
+    position: absolute;
+    left: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+.blur-circle2{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(100px);
+    position: absolute;
+    right: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
 </style>
+<div class="main-container">
+    <div class="blur-circle1">
+  
+    </div>
+    <div class="blur-circle2">
+  
+    </div>
+
 
 <div class="scroll">
     <div class="container" style="margin-top: 70px;">
@@ -61,4 +108,8 @@
     </div>
 </div>
 </div>
+
+<style>
+
+</style>
 {% endblock %}

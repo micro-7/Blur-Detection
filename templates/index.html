@@ -17,12 +17,12 @@
       <div class="info" style="margin-bottom: 400px;">
         <h1>BlurBuster </h1>
         <p>Effortlessly enhance your videos and images by detecting and removing blur.</p>
-        <a href="/about">
-          <button>About Us</button>
-        </a>
+        <div class="content">
+          <button class="button-73" role="button"><a href="/about">About Us</a>
+      </div>
       </div>
       <div class="image" style="margin-bottom: 400px;">
-        <img class="main-image" src="/static/downloadfile.jpg">
+        <img class="main-image" src="/static/brbs.png">
       </div>
     </div>
   </div>
@@ -124,18 +124,6 @@ body {
       justify-content: center;
     }
   }
-  .landing-page header .logo {
-    color: #5d5d5d;
-    font-style: italic;
-    text-transform: uppercase;
-    font-size: 20px;
-  }
-  @media (max-width: 767px) {
-    .landing-page header .logo {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-  }
   .landing-page header .links {
     display: flex;
     align-items: center;
@@ -146,12 +134,7 @@ body {
       gap: 10px;
     }
   }
-  .landing-page header .links li {
-    margin-left: 30px;
-    color: #5d5d5d;
-    cursor: pointer;
-    transition: .3s;
-  }
+
   @media (max-width: 767px) {
     .landing-page header .links li {
       margin-left: auto;
@@ -172,20 +155,6 @@ body {
     justify-content: space-between;
     gap: 140px;
     min-height: calc(100vh - 80px);
-  }
-  @media (max-width: 767px) {
-    .landing-page .content .container {
-      gap: 0;
-      min-height: calc(100vh - 101px);
-      justify-content: center;
-      flex-direction: column-reverse;
-    }
-  }
-  @media (max-width: 767px) {
-    .landing-page .content .info {
-      text-align: center;
-      margin-bottom: 15px 
-    }
   }
   .landing-page .content .info h1 {
     color: #bbbbbb;
@@ -211,14 +180,59 @@ body {
   }
   /* End Landing Page */
 
-  .main-image{
-    /* mix-blend-mode:exclusion */
-    width: 600px;
-    height: 400px;
-  }
    h1,p{
     color:white;
   }
+
+
+  /* CSS */
+.button-73 {
+  appearance: none;
+  background-color: #FFFFFF;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-73:hover {
+  background-color: #FFC229;
+  box-shadow: #ff14c8 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.button-73:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .button-73 {
+    font-size: 1.5rem;
+    padding: .75rem 2rem;
+  }
+}
+
+.button-73 a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    }
 </style>
 
 {% endblock %}

@@ -27,6 +27,15 @@ class File(Base):
     def __str__(self):
         return self.path
 
+class ProcessedFile(Base):
+    __tablename__ = 'processed_files'
+    id = Column(Integer, primary_key=True)
+    path  = Column(String(255), nullable=False)
+    user_id =  Column(Integer, ForeignKey('users.id'))
+    created_at = Column(DateTime, default=datetime.now)
+
+    def __str__(self):
+        return self.path + " - processed"
     
 #utility function
     

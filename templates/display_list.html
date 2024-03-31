@@ -9,7 +9,7 @@
 
     html,
     body {
-        background: linear-gradient(45deg, #190f2c, #200b30);
+        background-color: black;
     }
 
     img {
@@ -78,6 +78,59 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    .scroll {
+        overflow-y: auto;
+        max-height: 500px;
+    }
+
+    body{
+        background-color: black;
+    }
+
+    *{
+    padding: 0px;
+    margin:0px;
+}
+.main-container{
+    margin:0px;
+    padding: 0px;
+    background-color: black;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+.blur-circle1{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(120px);
+    position: absolute;
+    left: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+.blur-circle2{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(100px);
+    position: absolute;
+    right: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+</style>
+<div class="main-container">
+    <div class="blur-circle1">
+  
+    </div>
+    <div class="blur-circle2">
+  
+    </div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 my-4">
@@ -89,8 +142,8 @@
                         <source src="/{{ file.path }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <a href="/blur/vid/{{file.id}}" class="btn btn-primary">Detect Blur and Remove Blur </a>
                     <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
-                    <a href="/blur/vid/{{file.id}}" class="btn btn-danger">Detect Blur</a>
                     </div>
                 <!-- Delete button -->
                 {% else %}
@@ -98,8 +151,8 @@
                     <a href="/{{ file.path }}">
                         <img src="/{{ file.path }}" alt="{{ file.name }}">
                     </a> <!-- Delete button -->
+                    <a href="/blur/img/{{file.id}}" class="btn btn-primary">Detect Blur</a>
                     <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
-                    <a href="/blur/vid/{{file.id}}" class="btn btn-danger">Detect Blur</a>
                 </div>
 
                 {% endif %}
