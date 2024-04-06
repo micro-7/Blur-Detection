@@ -90,6 +90,19 @@ def view_files():
         fileList.append(file)
     return render_template('display_list.html', files=fileList)
 
+@app.route('/file/fixed', methods=['GET','POST'])
+def fixed_files():
+    db = open_db()  
+    processed_files =  db.query(File).all()
+    # segregate file into different file types
+    fileList = []
+    for file in processed_files:
+        file = file.__dict__
+        file['type'] = os.path.splitext(file['path'])[1]
+        print(file)
+        fileList.append(file)
+    return render_template('fixed_videos.html', files=fileList)
+
 @app.route('/file/<int:id>/view/')
 def file_view(id):
     return render_template('view_file.html')
