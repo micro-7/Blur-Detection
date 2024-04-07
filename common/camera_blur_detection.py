@@ -4,14 +4,15 @@ import cv2
 def variance_of_laplacian(image):
     return cv2.Laplacian(image, cv2.CV_64F).var()
 
-def process_camera(threshold=100.0):
+def process_camera( camera_ip="http://192.168.18.9:4747/video",threshold=100.0):
     # Open a connection to the camera (0 is usually the default camera)
-    cap = cv2.VideoCapture(0)
+    print(camera_ip)
+    cap = cv2.VideoCapture(camera_ip)
 
     result = []
     frame_count = 0
 
-    while True:
+    while cap.isOpened():
         # Capture frame-by-frame
         ret, frame = cap.read()
 
@@ -56,5 +57,5 @@ def process_camera(threshold=100.0):
     return result
 
 if __name__ == "__main__":
-    out = process_camera(100.0)
+    out = process_camera()
     print(out)

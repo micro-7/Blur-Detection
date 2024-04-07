@@ -1,0 +1,93 @@
+{% extends 'layout/base.html' %}
+
+{% block css %}
+<style>
+    body{
+        background-color: black;
+    }
+
+    .main-container{
+    margin:0px;
+    padding: 0px;
+    background-color: black;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: relative;
+}
+.blur-circle1{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(120px);
+    position: absolute;
+    left: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+.blur-circle2{
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(to bottom,white,pink);
+    border-radius: 50%;
+    filter:blur(100px);
+    position: absolute;
+    right: 10%;
+    top:20%;
+    /* transform: translate(50%); */
+}
+
+.form-text.text-muted {
+        color: white !important;
+    }
+
+.form-label {
+    color: white;
+}
+
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="blur-circle1">
+  
+    </div>
+    <div class="blur-circle2">
+  
+    </div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="camera_path" class="form-label">Camera ID</label>
+                    <input type="text" class="form-control form-control-lg" name="camera_path" id="camera_path"
+                        aria-describedby="cameraHelp" placeholder="Enter camera id or ip address" />
+                    <small id="cameraHelp" class="form-text text-muted" >Enter 0 for Webcam or IP address of
+                        driodcam</small>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">
+                        Start Detection
+                    </button>
+
+                </div>
+                <div class="image" style="margin-bottom: 400px; margin-left: -60px;">
+                    <img class="main-image" src="/static/brbs.png">
+                  </div>
+
+            </form>
+        </div>
+        
+    </div>
+    
+</div>
+
+
+
+{% endblock %}
+{% block js %}{% endblock %}

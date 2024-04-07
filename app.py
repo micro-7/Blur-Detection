@@ -1,13 +1,15 @@
 
 
 from flask import Flask, render_template,redirect,request, flash, session
-from database import User, add_to_db, File, open_db
+from database import User, add_to_db, File, open_db, ProcessedFile
 import os
 from werkzeug.utils import secure_filename
 from common.file_utils import *
 from common.blur_vid import process_video  
 from common.remove_vid_blur import remove_blur_from_video
 from common.image_blur_detection import detect_img_blur
+from common.camera_blur_detection import process_camera
+
 
 
 app = Flask(__name__)
@@ -95,13 +97,7 @@ def fixed_files():
     db = open_db()  
     processed_files =  db.query(File).all()
     # segregate file into different file types
-    fileList = []
-    for file in processed_files:
-        file = file.__dict__
-        file['type'] = os.path.splitext(file['path'])[1]
-        print(file)
-        fileList.append(file)
-    return render_template('fixed_videos.html', files=fileList)
+    return render_template('fixed_videos.html', files=processed_files)
 
 @app.route('/file/<int:id>/view/')
 def file_view(id):
@@ -122,16 +118,25 @@ def delete_file(id):
 
 @app.route('/blur/vid/<int:id>')
 def detect(id):
+    if 'isauth' not in session or not session['isauth']:
+        return redirect('/login')
     db = open_db()
     file = db.query(File).filter_by(id=id).first()
     out = process_video(file.path, 100.0)   
     output_path = remove_blur_from_video(file.path, out, f"videos/{file.id}_blur_removed.mp4")
+    # save to db
+    db.add(ProcessedFile(path=output_path, user_id=session['id']))
+    db.commit()
+    db.close()
     print("Output video saved at:", output_path)
     flash("Blur removed successfully", 'success')
     return redirect('/file/list')
 
 @app.route('/blur/img/<int:id>')
 def detect_img(id):
+    if 'isauth' not in session or not session['isauth']:
+        return redirect('/login')
+
     db = open_db()
     file = db.query(File).filter_by(id=id).first()
     print(file)
@@ -161,6 +166,13 @@ def logout():
     session.clear()
     return redirect('/')
 
+# webcam endpoint
+@app.route('/webcam', methods=['GET', 'POST'])
+def webcam():
+    if request.method == 'POST':
+        camera_path = request.form.get('camera_path')
+        process_camera(camera_ip=camera_path)
+    return render_template('webcam.html')
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=8000, debug=True)
