@@ -95,7 +95,7 @@ def view_files():
 @app.route('/file/fixed', methods=['GET','POST'])
 def fixed_files():
     db = open_db()  
-    processed_files =  db.query(File).all()
+    processed_files =  db.query(ProcessedFile).all()
     # segregate file into different file types
     return render_template('fixed_videos.html', files=processed_files)
 
@@ -123,7 +123,7 @@ def detect(id):
     db = open_db()
     file = db.query(File).filter_by(id=id).first()
     out = process_video(file.path, 100.0)   
-    output_path = remove_blur_from_video(file.path, out, f"videos/{file.id}_blur_removed.mp4")
+    output_path = remove_blur_from_video(file.path, out, f"static/videos/{file.id}_blur_removed.webm")
     # save to db
     db.add(ProcessedFile(path=output_path, user_id=session['id']))
     db.commit()

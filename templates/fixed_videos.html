@@ -136,7 +136,7 @@
         <div class="col-md-12 my-4">
             <div class="grid-wrapper">
                 {% for file in files %}
-                {% if file.type == '.mp4' %}
+               
                 <div>
                     <video controls>
                         <source src="/{{ file.path }}" type="video/mp4">
@@ -145,15 +145,6 @@
                     <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
                     </div>
                 <!-- Delete button -->
-                {% else %}
-                <div>
-                    <a href="/{{ file.path }}">
-                        <img src="/{{ file.path }}" alt="{{ file.name }}">
-                    </a> <!-- Delete button -->
-                    <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
-                </div>
-
-                {% endif %}
                 {% endfor %}
             </div>
         </div>
