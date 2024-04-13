@@ -9,7 +9,7 @@ from common.blur_vid import process_video
 from common.remove_vid_blur import remove_blur_from_video
 from common.image_blur_detection import detect_img_blur
 from common.camera_blur_detection import process_camera
-
+from flask import send_file
 
 
 app = Flask(__name__)
@@ -99,6 +99,31 @@ def fixed_files():
     # segregate file into different file types
     return render_template('fixed_videos.html', files=processed_files)
 
+# delete fixed files
+@app.route('/fixed/delete/<int:id>')
+def delete_fixed_file(id):
+    db = open_db()
+    file = db.query(ProcessedFile).filter_by(id=id).first()
+
+    if file:
+        os.remove(file.path)
+        db.delete(file)
+        db.commit()
+        db.close()
+        flash("File deleted successfully", 'success')
+        return redirect('/file/fixed')
+    return render_template('fixed_videos.html')
+
+# download fixed files
+@app.route('/download/<int:id>')
+def download_fixed_file(id):
+    db = open_db()
+    file = db.query(ProcessedFile).filter_by(id=id).first()
+    if file:
+        return send_file(file.path, as_attachment=True)
+    return render_template('fixed_videos.html')
+
+
 @app.route('/file/<int:id>/view/')
 def file_view(id):
     return render_template('view_file.html')
@@ -123,7 +148,7 @@ def detect(id):
     db = open_db()
     file = db.query(File).filter_by(id=id).first()
     out = process_video(file.path, 100.0)   
-    output_path = remove_blur_from_video(file.path, out, f"static/videos/{file.id}_blur_removed.webm")
+    output_path = remove_blur_from_video(file.path, out, f"static/videos/{file.id}_blur_removed.mp4")
     # save to db
     db.add(ProcessedFile(path=output_path, user_id=session['id']))
     db.commit()

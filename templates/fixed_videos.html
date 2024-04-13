@@ -142,7 +142,8 @@
                         <source src="/{{ file.path }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <a href="/delete/{{file.id}}" class="btn btn-danger">Delete</a>
+                    <a href="/fixed/delete/{{file.id}}" class="btn btn-danger">Delete</a>
+                    <a href="/download/{{file.id}}" class="btn btn-primary">Download</a>
                     </div>
                 <!-- Delete button -->
                 {% endfor %}
