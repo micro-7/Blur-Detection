@@ -16,7 +16,7 @@ def remove_blur_from_video(video_path, blur_frames_dict, output_path):
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     # Define the codec and create VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = cv2.VideoWriter_fourcc('V','P','8','0')
     out = cv2.VideoWriter(output_path, fourcc, 20.0, (width, height))
 
     frame_count = 0
@@ -50,5 +50,5 @@ if __name__ == "__main__":
     print(out) 
     
     # Remove blurry frames and save the processed video
-    output_path = remove_blur_from_video("videos/blurr2.mp4", out, "videos/blurry_removedd.mp4")
+    output_path = remove_blur_from_video("videos/blurr2.mp4", out, "videos/blurry_removedd.webm")
     print("Output video saved at:", output_path)

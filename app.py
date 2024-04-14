@@ -106,7 +106,8 @@ def delete_fixed_file(id):
     file = db.query(ProcessedFile).filter_by(id=id).first()
 
     if file:
-        os.remove(file.path)
+        try:os.remove(file.path)
+        except:pass
         db.delete(file)
         db.commit()
         db.close()
@@ -148,7 +149,7 @@ def detect(id):
     db = open_db()
     file = db.query(File).filter_by(id=id).first()
     out = process_video(file.path, 100.0)   
-    output_path = remove_blur_from_video(file.path, out, f"static/videos/{file.id}_blur_removed.mp4")
+    output_path = remove_blur_from_video(file.path, out, f"static/videos/{file.id}_blur_removed.webm")
     # save to db
     db.add(ProcessedFile(path=output_path, user_id=session['id']))
     db.commit()
