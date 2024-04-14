@@ -18,7 +18,7 @@ def is_file_allowed(file_path):
     return ext in allowed_extensions
 
 def upload_file(file, name):
-    upload_path = os.path.join('/static','uploads')
+    upload_path = os.path.join('static','uploads')
     if not os.path.exists(upload_path):
         os.makedirs(upload_path)
     # uncomment the below line to restrict file types
